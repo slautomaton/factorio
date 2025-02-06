@@ -1,8 +1,33 @@
 version: '2'
 services:
   factorio:
-    build: .
+    container_name: factorio
+    image: masterbeef/factorio:stable
+    restart: unless-stopped
+    build:
+      context: .
+      args:
+        # Check buildinfo.json for supported versions and SHAs
+        # https://github.com/factoriotools/factorio-docker/blob/master/buildinfo.json
+        - VERSION=2.0.32
+        - SHA256=2a6102ae42dcc5e8fe923bd68bcd326a569e35912acde121301e5d4d2d856417
     ports:
-     - "34197:34197"
+      - "34197:34197/udp"
+      - "27015:27015/tcp"
     volumes:
-     - /tmp/factorio:/factorio
+      - /opt/factorio:/factorio
+    environment:
+      - UPDATE_MODS_ON_START=true
+      #    environment:
+      #      - PUID=1000
+      #      - PGID=1000
+      #      - UPDATE_MODS_ON_START=true
+      #      - USERNAME=FactorioUsername
+      #      - TOKEN=FactorioToken
+      #      - PORT=34198
+      #      - PRESET=deathworld
+      #      - ADDR=::1
+#    # Uncomment the following line to enable the use of the host's network stack,
+#    # which may be necessary for some setups like NAS or when using some proxy service like firewall rules.
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
