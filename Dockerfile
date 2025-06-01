@@ -1,6 +1,6 @@
 #latest alpine image from Alpine Team
 FROM alpine:latest 
-LABEL maintainer="https://github.com/masterbeef/factorio"
+LABEL maintainer="https://github.com/slautomaton/factorio"
 
 # downloads the factorio headless into /tmp, 
 # unpacks it into /opt/factorio 
@@ -75,7 +75,7 @@ RUN set -ox pipefail \
     && mkdir -p /opt/factorio/config/ \
     && chown -R "$USER":"$GROUP" /opt/factorio /factorio
 
-VOLUME /factorio
+VOLUME /etc/home/slau/factorio:/factorio
 
 EXPOSE $PORT/udp $RCON_PORT/tcp
 
